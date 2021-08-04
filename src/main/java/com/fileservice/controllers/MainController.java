@@ -112,13 +112,11 @@ public class MainController {
         result.put("total", someFiles.size());
         result.put("page", someFiles);
         return result;
-      //  return fileService.findByName("bbb.txt");
     }
 
     @GetMapping("/files")
     public List<SomeFile> getPartName(@RequestParam String q){
         return fileService.findByName(q);
-        //  return fileService.findByName("bbb.txt");
     }
 
 }

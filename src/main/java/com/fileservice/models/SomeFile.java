@@ -24,19 +24,6 @@ public class SomeFile implements Serializable {
     private byte size;
     private Set<Tag> tags = new HashSet<>();
 
-    public SomeFile(String name, byte size) {
-        this.name = name;
-        this.size = size;
-    }
-
-    public SomeFile(String ID) {
-        this.ID = ID;
-    }
-
-    public SomeFile(Set<Tag> tags) {
-        this.tags = tags;
-    }
-
     public Set<Tag> getTags() {
         return tags;
     }
