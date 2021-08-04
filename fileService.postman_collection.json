@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "b7aeb63a-dac4-4145-a630-9546f902e048",
+		"name": "fileService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/file",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"abb.txt\",\r\n    \"size\": 65\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/file",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"file"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/file/_oASDnsBFGNN7fJCACMQ",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/file/_oASDnsBFGNN7fJCACMQ",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"file",
+						"_oASDnsBFGNN7fJCACMQ"
+					]
+				},
+				"description": "localhost:8080/file/{id}"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/file/_oASDnsBFGNN7fJCACMQ/tags",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\"tag1\", \"tag2\", \"tag3\"]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/file/_oASDnsBFGNN7fJCACMQ/tags",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"file",
+						"_oASDnsBFGNN7fJCACMQ",
+						"tags"
+					]
+				},
+				"description": "localhost:8080/file/{id}/tags\r\nadd tags in body of query"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/file/2oDhC3sBFGNN7fJC9yOAz",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/file/2oDhC3sBFGNN7fJC9yOAz",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"file",
+						"2oDhC3sBFGNN7fJC9yOAz"
+					]
+				},
+				"description": "localhost:8080/file/{id}"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/file/_oASDnsBFGNN7fJCACMQ/tags",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\"tag2\"]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/file/_oASDnsBFGNN7fJCACMQ/tags",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"file",
+						"_oASDnsBFGNN7fJCACMQ",
+						"tags"
+					]
+				},
+				"description": "delete tags in file by id. enter tags in body of query\r\nlocalhost:8080/file/{id}/tags"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/DeleteAllFiles",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/DeleteAllFiles",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"DeleteAllFiles"
+					]
+				},
+				"description": "Delete all files"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/file?tags=tag2&page=2&size=3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/file?tags=tag2&page=2&size=3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"file"
+					],
+					"query": [
+						{
+							"key": "tags",
+							"value": "tag2"
+						},
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "size",
+							"value": "3"
+						}
+					]
+				},
+				"description": "find files with tags={list of tags}"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/files?q=bb",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/files?q=bb",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"files"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "bb"
+						}
+					]
+				},
+				"description": "search over file name\r\nlocalhost:8080/files?q={part of name}, q exist in name"
+			},
+			"response": []
+		}
+	]
+}
