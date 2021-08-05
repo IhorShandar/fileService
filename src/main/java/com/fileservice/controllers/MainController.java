@@ -3,7 +3,6 @@ package com.fileservice.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fileservice.models.SomeFile;
-import com.fileservice.models.Tag;
 import com.fileservice.service.SomeFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,20 +24,20 @@ public class MainController {
             String[] splitName = someFile.getName().split("\\.");
             if (splitName.length > 0){
                 String extension = splitName[splitName.length-1];
-                Set<Tag> addTag = new HashSet<>();
+                Set<String> addTag = new HashSet<>();
                 switch (extension){
-                    case "mp3": addTag.add(new Tag("audio")); someFile.setTags(addTag); break;
+                    case "mp3": addTag.add("audio"); someFile.setTags(addTag); break;
                     case "doc":
                     case "docx":
-                    case "txt": addTag.add(new Tag("document")); someFile.setTags(addTag); break;
+                    case "txt": addTag.add("document"); someFile.setTags(addTag); break;
                     case "jpg":
-                    case "png": addTag.add(new Tag("image")); someFile.setTags(addTag); break;
+                    case "png": addTag.add("image"); someFile.setTags(addTag); break;
                     case "mp4":
                     case "avi":
-                    case "wmv": addTag.add(new Tag("video")); someFile.setTags(addTag); break;
+                    case "wmv": addTag.add("video"); someFile.setTags(addTag); break;
                     case "zip":
                     case "rar":
-                    case "7z": addTag.add(new Tag("archive")); someFile.setTags(addTag); break;
+                    case "7z": addTag.add("archive"); someFile.setTags(addTag); break;
                 }
             }
             fileService.save(someFile);
@@ -63,7 +62,7 @@ public class MainController {
     }
 
     @PostMapping(value = "/file/{ID}/tags", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> assignTags(@PathVariable String ID, @RequestBody List<Tag> tags) {
+    public ResponseEntity<?> assignTags(@PathVariable String ID, @RequestBody List<String> tags) {
         SomeFile someFile = fileService.findById(ID);
         if (someFile == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"success\":false,\"error\":\"file not found\"}");
@@ -75,12 +74,12 @@ public class MainController {
     }
 
     @DeleteMapping(value = "/file/{ID}/tags", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> deleteTags(@PathVariable String ID, @RequestBody List<Tag> tags) {
+    public ResponseEntity<?> deleteTags(@PathVariable String ID, @RequestBody List<String> tags) {
         SomeFile someFile = fileService.findById(ID);
         if (someFile == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"success\":false,\"error\":\"file not found\"}");
         } else {
-            for (Tag tag : tags) {
+            for (String tag : tags) {
                 if (!someFile.getTags().remove(tag)) {
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"success\":false,\"error\":\"tag not found in file\"}");
                 }
@@ -103,11 +102,8 @@ public class MainController {
 
     @GetMapping("/file")
     public Map<String, Object> get(@RequestParam String tags, @RequestParam int page, @RequestParam int size){
-        List<String> taggs = Arrays.asList(tags.split(","));
-        Set<Tag> tagList = new HashSet<>();
-        taggs.forEach(tagg -> tagList.add(new Tag(tagg)));
+        Set<String> tagList = new HashSet<>(Arrays.asList(tags.split(",")));
         List<SomeFile> someFiles = fileService.findByTags(tagList);
-
         Map<String, Object> result = new HashMap<>();
         result.put("total", someFiles.size());
         result.put("page", someFiles);

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-@Document(indexName = "some_file")
+@Document(indexName = "some_file2")
 @NoArgsConstructor
 @AllArgsConstructor
 public class SomeFile implements Serializable {
@@ -22,17 +22,9 @@ public class SomeFile implements Serializable {
 
     private String name;
     private byte size;
-    private Set<Tag> tags = new HashSet<>();
+    private Set<String> tags = new HashSet<>();
 
-    public Set<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(Set<Tag> tags) {
-        this.tags = tags;
-    }
-
-    public void addTags(List<Tag> tags){
+    public void addTags(List<String> tags){
         this.tags.addAll(tags);
     }
 }

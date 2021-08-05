@@ -2,7 +2,6 @@ package com.fileservice.service;
 
 import com.fileservice.dao.SomeFileDAO;
 import com.fileservice.models.SomeFile;
-import com.fileservice.models.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +37,7 @@ public class SomeFileService {
         return someFileDAO.findById(id).orElse(null);
     }
 
-    public List<SomeFile> findByTags(Set<Tag> tagList){
+    public List<SomeFile> findByTags(Set<String> tagList){
         List<SomeFile> all = someFileDAO.findAll();
         List<SomeFile> newFiles = new ArrayList<>();
         for (SomeFile file: all) {
