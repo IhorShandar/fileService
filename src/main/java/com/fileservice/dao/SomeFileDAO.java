@@ -3,10 +3,11 @@ package com.fileservice.dao;
 import com.fileservice.models.SomeFile;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
-import java.util.List;
+import java.util.Set;
 
 public interface SomeFileDAO extends ElasticsearchRepository<SomeFile, String> {
-        List<SomeFile> findByNameContains(String name);
-        List<SomeFile> findAll();
+        Set<SomeFile> findByNameContains(String name);
+        Set<SomeFile> findByTagsContains(String tags);
+        Set<SomeFile> findAll();
 
 }

@@ -101,9 +101,32 @@ public class MainController {
     }
 
     @GetMapping("/file")
-    public Map<String, Object> get(@RequestParam String tags, @RequestParam int page, @RequestParam int size){
-        Set<String> tagList = new HashSet<>(Arrays.asList(tags.split(",")));
-        List<SomeFile> someFiles = fileService.findByTags(tagList);
+    public Map<String, Object> getTags(@RequestParam String tags, @RequestParam int page, @RequestParam int size){
+        List<String> tagList = new ArrayList<>(Arrays.asList(tags.split(",")));
+        Set<SomeFile> someFiles = fileService.findByTags(tagList);
+        Map<String, Object> result = new HashMap<>();
+        result.put("total", someFiles.size());
+        result.put("page", someFiles);
+        return result;
+    }
+
+    //get files by tags using recursion
+    @GetMapping("/file1")
+    public Map<String, Object> getTags1(@RequestParam String tags, @RequestParam int page, @RequestParam int size){
+        List<String> tagList = new ArrayList<>(Arrays.asList(tags.split(",")));
+        Set<SomeFile> newFile = new HashSet<>();
+        Set<SomeFile> someFiles = fileService.findByTags1(tagList, 0, newFile);
+        Map<String, Object> result = new HashMap<>();
+        result.put("total", someFiles.size());
+        result.put("page", someFiles);
+        return result;
+    }
+
+    //get files by tags using recursion
+    @GetMapping("/file2")
+    public Map<String, Object> getTags2(@RequestParam String tags, @RequestParam int page, @RequestParam int size){
+        List<String> tagList = new ArrayList<>(Arrays.asList(tags.split(",")));
+        Set<SomeFile> someFiles = fileService.findByTags2(tagList);
         Map<String, Object> result = new HashMap<>();
         result.put("total", someFiles.size());
         result.put("page", someFiles);
@@ -111,7 +134,7 @@ public class MainController {
     }
 
     @GetMapping("/files")
-    public List<SomeFile> getPartName(@RequestParam String q){
+    public Set<SomeFile> getPartName(@RequestParam String q){
         return fileService.findByName(q);
     }
 
